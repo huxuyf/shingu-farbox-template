@@ -1,0 +1,43 @@
+html
+	head
+		title
+			评论 - {{site.title}}
+	    meta(name="keywords", content="{{site.configs.keywords.escaped}}")
+	    meta(name="description", content=site.raw_content.escaped)
+	    link(rel="icon",href="/template/favicon.ico",type="image/x-icon")
+	    link(rel="shortcut icon",href="/template/favicon.ico",type="image/x-icon")	
+		meta(name="renderer", content="webkit")
+
+		load('fonts')
+		load('/template/sass/huxuyf.scss')
+		if request.host == "shingu.farbox.com"
+			redirect("http://www.huxuyf.info" + request.url_without_host)
+	body
+		#wrap
+			#header.cf
+				.logo
+					<a href="/blog"><img src='/template/logo.jpg' alt="许囧侠在这里"></img></a>
+				.main-nav
+					ul.menu
+						li= a_with_selected('/blog', '首页')
+						li= a_with_selected('/archive', '归档')
+						//if has('about.md')
+							li= a_with_selected('/about.md', '关于')
+						li= a_with_selected('/about','关于')
+
+			#main.cf
+				.ds-recent-comments(data-num-items='25', data-show-avatars='1', data-show-time='1', data-show-title='1', data-show-admin='1', data-excerpt-length='70')
+
+			#footer
+				.copyright Powered by  <a href="http://www.farbox.com/">FarBox</a>.
+					| Theme by <a href="http://motype.org/">衣不如新</a>,
+					| Inspired by <a href="http://sxlf.org/">伤心凉粉</a>,
+					| Modified by <a href="http://www.huxuyf.info/">许囧侠</a>. Thanks for <a href="https://db.tt/SnYtd6AO">Dropbox</a>.
+
+if site.configs.duoshuo
+				script(type="text/javascript")
+					var duoshuoQuery = {short_name:"{{ site.configs.duoshuo }}"};
+					(function() { var ds = document.createElement('script'); ds.type = 'text/javascript';ds.async = true;
+					ds.src = '//static.duoshuo.com/embed.js';ds.charset = 'UTF-8';
+					(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+					})();

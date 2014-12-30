@@ -1,0 +1,9 @@
+extends base.jade
+block title
+	{{category.title}} - {{site.title}}
+block content
+	posts =get_data(path=category.title,limit=site.configs.post_per_page,pager_name="category")
+	{% from "include/macros.jade" import make_posts_list %}
+	.primary
+		+make_posts_list
+	include include/sider.html

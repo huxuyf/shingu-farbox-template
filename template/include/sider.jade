@@ -1,0 +1,39 @@
+.sider
+	.aside
+		h3
+			i.fa.fa-magic
+			span &nbsp; 最新
+		ul
+			rposts = get_data(path='/', type='post', limit=15, with_page=False)
+			for post in rposts
+				li.listing-item
+					a(href=post.url, title=post.title)= post.title
+        				
+	.aside	
+		h3
+			i.fa.fa-magic
+			span &nbsp; 分类
+		ul
+			categories = get_data(type='folder', level=1, min_posts_count=1,with_page=False)
+			for category in  sorted_by_position(categories)
+				li.listing-item
+					a(href="/category/{{category.path}}") {{category.title}} [{{get_data(path=category.title,return_count=True)}}]
+
+	if site.tags
+		.aside
+			h3.tags
+				i.fa.fa-tags
+				span &nbsp; 标签
+			ul
+				for tag_name, tag_count in site.tags
+					if tag_count >= 5
+						li.listing-item
+							a(href="/tags/{{tag_name}}") {{tag_name}} [{{tag_count}}]
+
+	.aside
+		h3
+			i.fa.fa-user
+			span &nbsp; 链接
+		ul
+			links = get_doc(path='/links.md')
+			{{links.content}}
